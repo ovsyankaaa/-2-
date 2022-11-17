@@ -1,0 +1,9 @@
+import matplotlib.pyplot as plt
+from scipy.interpolate import UnivariateSpline
+import numpy as np
+x = [1.1, 1.4, 1.9, 2.5, 2.7]
+y = [1.91, 3.64, 4.55, 2.57, 0.24]
+spl = UnivariateSpline(x, y)#Побудовасплайна
+xs = np.linspace(1.1, 2.7, 1000)
+plt.plot(x,y,'go', xs, spl(xs), 'y')
+plt.show()
