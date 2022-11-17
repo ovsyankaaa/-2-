@@ -1,0 +1,32 @@
+#ЗАВДАННЯ 1
+import math
+
+print("Яка рівність є більш точною 14**(1/2)=3.74 чи 49/13=3.77?")
+x = 3.74
+b = 3.77
+x1 = math.sqrt(14)
+b1 = 49 / 13
+
+#marginal absolute error
+XX = math.fabs(x - x1)
+BB = math.fabs(b - b1)
+
+#marginal relative error
+X_1 = math.fabs(XX / x)
+B_1 = math.fabs(BB / b)
+if(X_1>B_1):
+    print(f"Нерівність{x1} = {x} точніша")
+else:
+    print(f"Нерівність {b1} = {b} точніша")
+
+
+#ЗАВДАННЯ 2
+import math
+print("Щоб знайти кількість правильних значущих цифр у вузькому розумінні для 5.6483(+-0.0017)")
+#5.6483=5*10^0+6*10^(-1)+4*10^(-2)+8*10^(-3)+3*10^(-4)
+x=0.0017
+for n in range(5):
+    if(x<=0.5*10**(0-n+1)):
+        continue
+    else:
+        print(f"Умова виконується {n-1} разів")
