@@ -1,0 +1,66 @@
+#1
+
+import numpy as np
+import math
+from scipy.misc import derivative
+
+def f(x):
+    return 4*pow(x,4) - 4*pow(x,3) + 2*pow(x,2) - 3*x - 9
+
+a = 3/4
+
+b = 3.
+
+eps = 0.001 #точність
+
+def nuton(a,b,eps):
+    df = derivative(f, b, n = 1)
+    df2 = derivative(f, b, n = 2)
+    if (df*df2>0):
+        xi = b
+    else:
+        xi = a
+    df = derivative(f,xi, n = 1)
+    xi_1 = xi - f(xi)/df
+    while (abs(xi_1 - xi)>eps): #accuracy check
+        xi = xi_1
+        xi_1 = xi - f(xi)/df
+
+    return print ('Solving the equation by Newton*s method x = ', xi_1)
+nuton (a,b,eps)
+
+
+#2
+import numpy as np
+import math
+from scipy.misc import derivative
+
+def f(x):
+    return 4*pow(x,4) - 4*pow(x,3) + 2*pow(x,2) - 3*x - 9
+
+a = 3/4
+
+b = 3.
+
+eps = 0.001 #точність
+
+def comb(a,b,eps):
+    if derivative(f,a,n=1)*derivative(f,a,n=2) < 0:
+        a0=b
+        b0=a
+    else:
+        a0=a
+        b0=b
+
+    xp1=a0
+    xp2=b0
+    while abs(xp2-xp1) >eps:
+        xn1=xp1-f(xp1)*(xp2-xp1)/(f(xp2)-f(xp1))
+        xn2=xp2-f(xp2)/derivative(f,xp2,n=1)
+        xp1 = xn1 
+        xp2 = xn2
+    x = (xp1+xp2)/2
+    print('Solving the equation by combined method x = ', x)  
+comb(a,b,eps)
+
+
