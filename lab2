@@ -1,0 +1,80 @@
+#1
+#Алгоритм методу половинного ділення
+
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+def f(x):
+    return 4*x**4 - 4*x**3 + 2*x**2 - 3*x - 9
+
+a = 3/4
+b = 3
+
+eps = 0.001 #точність
+
+def rec_dyhotomy(a, b, eps):
+    if abs(f(b) - f(a)) < eps:
+        print('Обчислюємо корінь')
+        return 
+    mid = (a+b) / 2
+
+    if f(mid) == 0 or abs(f(mid)) < eps:
+        print(f'Корінь знаходиться в точці x = {mid}')
+
+    elif f(a)*f(mid) < 0:
+        rec_dyhotomy(a, mid, eps)
+
+    else:
+        rec_dyhotomy(mid, b, eps)
+
+rec_dyhotomy(a, b, eps)
+
+x = np.arange(a, b, 0.01)
+
+plt.plot(x, f(x))
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('Метод ділення навпіл')
+plt.grid()
+plt.show()
+
+#2
+#Алгоритм методу хорд
+
+import sympy as sp
+from sympy import *
+a = 3/4
+b = 3
+eps=0.0001
+#похідна функції 
+
+x=Symbol('x')
+f=(4*x**4 - 4*x**3 + 2*x**2 - 3*x - 9)
+f1=sp.diff(f)
+print("Похідна >>> ",f1)
+f2=sp.diff(f1) # похідна від похідної
+print("Похідна від похідної >>>",f2)
+#################
+
+# f(a)
+function=4*a**4 - 4*a**3 + 2*a**2 - 3*a - 9   
+print("f(a) >>> ",function)
+#f''(a)
+function2 = 48*a**2 - 24*a + 4
+print("f''(a) >>> ",function2)
+
+if function*function2>0 : # f(a)*f''(a)>0
+    x0=a
+    xi=b
+else:
+    x0=b
+    xi=a
+
+xi_1=xi-((xi-x0)/((4*xi**4 - 4*xi**3 + 2*xi**2 - 3*xi - 9)-(4*x0**4 - 4*x0**3 + 2*x0**2 - 3*x0 - 9))*(4*xi**4 - 4*xi**3 + 2*xi**2 - 3*xi - 9))
+while (abs(xi_1-xi)>eps):
+    xi=xi_1       
+    xi_1=xi-((xi-x0)/((4*xi**4 - 4*xi**3 + 2*xi**2 - 3*xi - 9)-(4*x0**4 - 4*x0**3 + 2*x0**2 - 3*x0 - 9))*(4*xi**4 - 4*xi**3 + 2*xi**2 - 3*xi - 9))
+else:
+    print(f'Корінь знаходиться в точці x =', xi_1)
+
